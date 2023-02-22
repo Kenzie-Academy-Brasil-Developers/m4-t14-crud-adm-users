@@ -17,3 +17,5 @@ export const returnUserSchema = createUserSchema.extend({
 export const allUserSchema = z.array(returnUserSchema);
 
 export const userOmitPassword = returnUserSchema.omit({ password: true });
+
+export const updateSchema = createUserSchema.partial().omit({ admin: true });

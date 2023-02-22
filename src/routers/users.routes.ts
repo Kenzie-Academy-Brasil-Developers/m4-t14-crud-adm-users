@@ -5,11 +5,12 @@ import {
   updateUsersController,
   listUsersController,
   listUserProfileController,
+  updatePartialUserController,
 } from "../controllers/users.controllers";
 import { ensureUsersExists } from "../middlewares/ensureUsersExists";
 import { ensureDataIsValid } from "../middlewares/ensureDataIsValid";
 import { ensureTokenIsValid } from "../middlewares/tokenIsValid.middleware";
-import { createUserSchema } from "../schemas/users.schemas";
+import { createUserSchema, updateSchema } from "../schemas/users.schemas";
 import { ensureAdminValidate } from "../middlewares/ensureAdminValidate";
 import { ensureLoggedAdmin } from "../middlewares/ensureLoggedAdmin";
 
@@ -22,7 +23,14 @@ userRoutes.get(
   ensureAdminValidate,
   listUsersController
 );
-userRoutes.patch("/:id", updatePartialController);
+userRoutes.patch(
+  "/:id",
+  ensureUsersExists,
+  ensureTokenIsValid,
+  ensureLoggedAdmin,
+  ensureDataIsValid(updateSchema),
+  updatePartialUserController
+);
 userRoutes.delete(
   "/:id",
   ensureUsersExists,

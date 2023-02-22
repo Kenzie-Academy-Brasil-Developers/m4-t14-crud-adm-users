@@ -3,8 +3,9 @@ import { createUserService } from "../services/users/createUsers.services";
 import { IUserRequest } from "../interfaces/users.interfaces";
 import { deleteUserServices } from "../services/users/deleteUser.services";
 import { listUsersService } from "../services/users/listUsers.services";
-import { updateUsersService } from "../services/users/updatePartial.sevices";
+import { updateUsersService } from "../services/users/update.sevices";
 import { listUserProfileService } from "../services/users/listProfile.services";
+import { updatePartialServices } from "../services/users/updatePartial.services";
 
 export const createUserController = async (
   request: Request,
@@ -62,7 +63,7 @@ export const updatePartialUserController = async (
 ): Promise<Response> => {
   const userId: number = parseInt(req.params.id);
   const userData: IUserRequest = req.body;
-  const changeUserData = await patchUserService(userId, userData);
+  const changeUserData = await updatePartialServices(userId, userData);
 
   return resp.json(changeUserData);
 };
