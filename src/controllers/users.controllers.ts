@@ -40,7 +40,7 @@ export const updateUsersController = async (
   request: Request,
   response: Response
 ): Promise<Response> => {
-  const userId: any = request.params.id;
+  const userId: number = parseInt(request.params.id);
 
   const newUser = await updateUsersService(userId);
   return response.json(newUser);

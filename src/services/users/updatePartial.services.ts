@@ -4,13 +4,14 @@ import { client } from "../../database";
 import { AppError } from "../../errors";
 import {
   IUserOmitPassword,
+  IUserRequest,
   IUserResult,
 } from "../../interfaces/users.interfaces";
 import { userOmitPassword } from "../../schemas/users.schemas";
 
 export const updatePartialServices = async (
   userId: number,
-  userData: any
+  userData: IUserRequest
 ): Promise<IUserOmitPassword> => {
   const queryStringUserExists: string = `
         SELECT
